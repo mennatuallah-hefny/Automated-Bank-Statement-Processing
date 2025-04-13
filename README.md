@@ -19,7 +19,7 @@ This scenario automates the ingestion, parsing, and reporting of PDF bank statem
 - **Processing Time**: 10 min (manual, estimated) → 37 sec (automated, measured) — **93.8% time reduction**
 - **Monthly Throughput**: 100 → 500 statements (estimated) — **+400% increase**
 - **Error Rate**: 1% (manual, estimated) → <0.05% (automated, estimated) — **95% reduction**
-- **Labor Savings**: 65 hrs/month (estimated) — **$14.1K annual savings**
+- **Labor Savings**: 78 hrs/month (estimated) — **$14,040 annual savings**
 
 ---
 
