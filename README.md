@@ -15,6 +15,7 @@
 This scenario automates the ingestion, parsing, and reporting of PDF bank statements using Jotform → Make.com → Google Sheets.
 
 > ⚠️ **Note**: All metrics below are based on realistic assumptions, except for the automated processing time, which was precisely measured at **37 seconds per PDF**.
+> 💰 Tool Costs Not Included: The automation uses tools like Make.com, Jotform, and PDF.co that have pricing plans. However, those costs are not included in the labor savings calculation and should be considered separately when evaluating ROI.
 
 - **Processing Time**: 10 min (manual, estimated) → 37 sec (automated, measured) — **93.8% time reduction**
 - **Monthly Throughput**: 100 → 500 statements (estimated) — **+400% increase**
