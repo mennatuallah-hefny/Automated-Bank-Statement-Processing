@@ -1,0 +1,1012 @@
+{
+    "name": "Bank Statement Automation",
+    "flow": [
+        {
+            "id": 14,
+            "module": "jotform:watchForSubmissions",
+            "version": 1,
+            "parameters": {
+                "__IMTHOOK__": 2042926
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                },
+                "restore": {
+                    "parameters": {
+                        "__IMTHOOK__": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "My Submission watcher webhook"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTHOOK__",
+                        "type": "hook:jotform",
+                        "label": "Webhook",
+                        "required": true
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "formID",
+                        "type": "number",
+                        "label": "Form ID"
+                    },
+                    {
+                        "name": "submissionID",
+                        "type": "number",
+                        "label": "Submission ID"
+                    },
+                    {
+                        "name": "webhookURL",
+                        "type": "text",
+                        "label": "Webhook URL"
+                    },
+                    {
+                        "name": "ip",
+                        "type": "text",
+                        "label": "IP"
+                    },
+                    {
+                        "name": "fromTitle",
+                        "type": "text",
+                        "label": "Form title"
+                    },
+                    {
+                        "name": "pretty",
+                        "type": "text",
+                        "label": "Pretty"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "label": "Username"
+                    },
+                    {
+                        "name": "rawRequest",
+                        "type": "text",
+                        "label": "RAW request"
+                    },
+                    {
+                        "name": "type",
+                        "type": "text",
+                        "label": "Type"
+                    },
+                    {
+                        "name": "request",
+                        "spec": [
+                            {
+                                "name": "slug",
+                                "type": "text",
+                                "label": "Slug"
+                            },
+                            {
+                                "name": "event_id",
+                                "type": "text",
+                                "label": "Event ID"
+                            },
+                            {
+                                "name": "path",
+                                "type": "text",
+                                "label": "Path"
+                            },
+                            {
+                                "name": "q4_name",
+                                "spec": [
+                                    {
+                                        "name": "prefix",
+                                        "type": "text",
+                                        "label": "Prefix"
+                                    },
+                                    {
+                                        "name": "first",
+                                        "type": "text",
+                                        "label": "First Name"
+                                    },
+                                    {
+                                        "name": "middle",
+                                        "type": "text",
+                                        "label": "Middle Name"
+                                    },
+                                    {
+                                        "name": "last",
+                                        "type": "text",
+                                        "label": "Last Name"
+                                    },
+                                    {
+                                        "name": "suffix",
+                                        "type": "text",
+                                        "label": "Suffix"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Name"
+                            },
+                            {
+                                "name": "q5_email",
+                                "type": "email",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "q7_messagewe",
+                                "type": "text",
+                                "label": "Message (We reply within 24 hours. SUN-THU, 9:00-17:00 GMT+2)"
+                            },
+                            {
+                                "name": "q8_phoneNumber",
+                                "spec": [
+                                    {
+                                        "name": "full",
+                                        "type": "text",
+                                        "label": "Full"
+                                    }
+                                ],
+                                "type": "collection",
+                                "label": "Phone Number"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Request"
+                    },
+                    {
+                        "name": "formTitle",
+                        "type": "text",
+                        "label": "Form Title"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "module": "builtin:BasicFeeder",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "array": "{{14.request.fileUpload}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 300,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "array": {
+                            "mode": "edit"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "mode": "edit",
+                        "name": "array",
+                        "spec": [],
+                        "type": "array",
+                        "label": "Array"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 5,
+            "module": "util:SetVariable2",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "name": "url",
+                "scope": "roundtrip",
+                "value": "{{3.value}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 600,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "name",
+                        "type": "text",
+                        "label": "Variable name",
+                        "required": true
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "type": "any",
+                        "label": "Variable value"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "url",
+                        "type": "any",
+                        "label": "url"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "module": "pdf-co:AiInvoiceParser",
+            "version": 1,
+            "parameters": {
+                "__IMTCONN__": 3984839
+            },
+            "mapper": {
+                "export": {
+                    "exportType": "inline"
+                },
+                "import": {
+                    "url": "{{5.url}}",
+                    "importType": "url"
+                }
+            },
+            "metadata": {
+                "designer": {
+                    "x": 900,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "export": {
+                            "nested": {
+                                "exportType": {
+                                    "label": "JSON Output"
+                                }
+                            }
+                        },
+                        "import": {
+                            "nested": {
+                                "importType": {
+                                    "label": "Import a File From URL"
+                                }
+                            }
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "pdf-co"
+                            },
+                            "label": "PDF.co connection"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:pdf-co",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "import",
+                        "spec": [
+                            {
+                                "name": "importType",
+                                "type": "select",
+                                "label": "Input File",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "upload",
+                                        "url"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "url",
+                                "type": "text",
+                                "label": "Url",
+                                "required": true
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Import Options",
+                        "required": true
+                    },
+                    {
+                        "name": "callback",
+                        "type": "url",
+                        "label": "Webhook URL"
+                    },
+                    {
+                        "name": "export",
+                        "spec": [
+                            {
+                                "name": "exportType",
+                                "type": "select",
+                                "label": "Export Type",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "downloadFile",
+                                        "inline"
+                                    ]
+                                }
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Export Options",
+                        "required": true
+                    },
+                    {
+                        "name": "import",
+                        "spec": [
+                            {
+                                "name": "importType",
+                                "type": "select",
+                                "label": "Input File",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "upload",
+                                        "url"
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "url",
+                                "type": "text",
+                                "label": "Url",
+                                "required": true
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Import Options",
+                        "required": true
+                    },
+                    {
+                        "name": "callback",
+                        "type": "url",
+                        "label": "Webhook URL"
+                    },
+                    {
+                        "name": "export",
+                        "spec": [
+                            {
+                                "name": "exportType",
+                                "type": "select",
+                                "label": "Export Type",
+                                "required": true,
+                                "validate": {
+                                    "enum": [
+                                        "downloadFile",
+                                        "inline"
+                                    ]
+                                }
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Export Options",
+                        "required": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 11,
+            "module": "builtin:BasicFeeder",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "array": "{{6.body.transactions}}"
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1200,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "array": {
+                            "mode": "edit"
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "mode": "edit",
+                        "name": "array",
+                        "spec": [],
+                        "type": "array",
+                        "label": "Array"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 12,
+            "module": "util:SetVariables",
+            "version": 1,
+            "parameters": {},
+            "mapper": {
+                "scope": "roundtrip",
+                "variables": [
+                    {
+                        "name": "date",
+                        "value": "{{11.date}}"
+                    },
+                    {
+                        "name": "description",
+                        "value": "{{11.description}}"
+                    },
+                    {
+                        "name": "deposits",
+                        "value": "{{11.deposits}}"
+                    },
+                    {
+                        "name": "withdrawals",
+                        "value": "{{11.withdrawals}}"
+                    },
+                    {
+                        "name": "balance",
+                        "value": "{{11.balance}}"
+                    }
+                ]
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1500,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "scope": {
+                            "label": "One cycle"
+                        },
+                        "variables": {
+                            "items": [
+                                null,
+                                null,
+                                null,
+                                null,
+                                null
+                            ]
+                        }
+                    }
+                },
+                "expect": [
+                    {
+                        "name": "variables",
+                        "spec": [
+                            {
+                                "name": "name",
+                                "type": "text",
+                                "label": "Variable name",
+                                "required": true
+                            },
+                            {
+                                "name": "value",
+                                "type": "any",
+                                "label": "Variable value"
+                            }
+                        ],
+                        "type": "array",
+                        "label": "Variables"
+                    },
+                    {
+                        "name": "scope",
+                        "type": "select",
+                        "label": "Variable lifetime",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "roundtrip",
+                                "execution"
+                            ]
+                        }
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "date",
+                        "type": "any",
+                        "label": "date"
+                    },
+                    {
+                        "name": "description",
+                        "type": "any",
+                        "label": "description"
+                    },
+                    {
+                        "name": "deposits",
+                        "type": "any",
+                        "label": "deposits"
+                    },
+                    {
+                        "name": "withdrawals",
+                        "type": "any",
+                        "label": "withdrawals"
+                    },
+                    {
+                        "name": "balance",
+                        "type": "any",
+                        "label": "balance"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 8,
+            "module": "google-sheets:addRow",
+            "version": 2,
+            "parameters": {
+                "__IMTCONN__": 7141194
+            },
+            "mapper": {
+                "from": "drive",
+                "mode": "select",
+                "values": {
+                    "0": "{{6.body.bank_information.bank_name}}",
+                    "1": "{{6.body.bank_information.bank_address}}",
+                    "2": "{{6.body.account_information.account_holder}}",
+                    "3": "{{6.body.account_information.account_address}}",
+                    "4": "{{6.body.account_information.account_number}}",
+                    "5": "{{6.body.account_information.account_activity_period}}",
+                    "6": "{{12.date}}",
+                    "7": "{{12.description}}",
+                    "8": "{{12.deposits}}",
+                    "9": "{{12.withdrawals}}",
+                    "10": "{{12.balance}}"
+                },
+                "sheetId": "Sheet1",
+                "spreadsheetId": "/18XMoj7jX4l8MpLqEJb8XYWi9ZneWQly3/1rV1brbSTRBgQO53qAOw6Gcf0V8V1KtiJsciZteta294",
+                "includesHeaders": true,
+                "insertDataOption": "INSERT_ROWS",
+                "valueInputOption": "USER_ENTERED",
+                "insertUnformatted": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": 1800,
+                    "y": 0
+                },
+                "restore": {
+                    "expect": {
+                        "from": {
+                            "label": "My Drive"
+                        },
+                        "mode": {
+                            "label": "Search by path"
+                        },
+                        "sheetId": {
+                            "label": "Sheet1"
+                        },
+                        "spreadsheetId": {
+                            "path": [
+                                "Make.com",
+                                "Bank Statements"
+                            ]
+                        },
+                        "includesHeaders": {
+                            "label": "Yes",
+                            "nested": [
+                                {
+                                    "name": "values",
+                                    "spec": [
+                                        {
+                                            "name": "0",
+                                            "type": "text",
+                                            "label": "Bank Name (A)"
+                                        },
+                                        {
+                                            "name": "1",
+                                            "type": "text",
+                                            "label": "Bank Address (B)"
+                                        },
+                                        {
+                                            "name": "2",
+                                            "type": "text",
+                                            "label": "Account Holder (C)"
+                                        },
+                                        {
+                                            "name": "3",
+                                            "type": "text",
+                                            "label": "Account Address (D)"
+                                        },
+                                        {
+                                            "name": "4",
+                                            "type": "text",
+                                            "label": "Account Number (E)"
+                                        },
+                                        {
+                                            "name": "5",
+                                            "type": "text",
+                                            "label": "Account Activity Period (F)"
+                                        },
+                                        {
+                                            "name": "6",
+                                            "type": "text",
+                                            "label": "Date (G)"
+                                        },
+                                        {
+                                            "name": "7",
+                                            "type": "text",
+                                            "label": "Description (H)"
+                                        },
+                                        {
+                                            "name": "8",
+                                            "type": "text",
+                                            "label": "Deposits (I)"
+                                        },
+                                        {
+                                            "name": "9",
+                                            "type": "text",
+                                            "label": "Withdrawals (J)"
+                                        },
+                                        {
+                                            "name": "10",
+                                            "type": "text",
+                                            "label": "Balance (K)"
+                                        },
+                                        {
+                                            "name": "11",
+                                            "type": "text",
+                                            "label": "(L)"
+                                        },
+                                        {
+                                            "name": "12",
+                                            "type": "text",
+                                            "label": "(M)"
+                                        },
+                                        {
+                                            "name": "13",
+                                            "type": "text",
+                                            "label": "(N)"
+                                        },
+                                        {
+                                            "name": "14",
+                                            "type": "text",
+                                            "label": "(O)"
+                                        },
+                                        {
+                                            "name": "15",
+                                            "type": "text",
+                                            "label": "(P)"
+                                        },
+                                        {
+                                            "name": "16",
+                                            "type": "text",
+                                            "label": "(Q)"
+                                        },
+                                        {
+                                            "name": "17",
+                                            "type": "text",
+                                            "label": "(R)"
+                                        },
+                                        {
+                                            "name": "18",
+                                            "type": "text",
+                                            "label": "(S)"
+                                        },
+                                        {
+                                            "name": "19",
+                                            "type": "text",
+                                            "label": "(T)"
+                                        },
+                                        {
+                                            "name": "20",
+                                            "type": "text",
+                                            "label": "(U)"
+                                        },
+                                        {
+                                            "name": "21",
+                                            "type": "text",
+                                            "label": "(V)"
+                                        },
+                                        {
+                                            "name": "22",
+                                            "type": "text",
+                                            "label": "(W)"
+                                        },
+                                        {
+                                            "name": "23",
+                                            "type": "text",
+                                            "label": "(X)"
+                                        },
+                                        {
+                                            "name": "24",
+                                            "type": "text",
+                                            "label": "(Y)"
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Values"
+                                }
+                            ]
+                        },
+                        "insertDataOption": {
+                            "mode": "chose",
+                            "label": "Insert rows"
+                        },
+                        "valueInputOption": {
+                            "mode": "chose",
+                            "label": "User entered"
+                        },
+                        "insertUnformatted": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "google"
+                            },
+                            "label": "My Google connection (mennatuallahhefny@gmail.com)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:google",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "mode",
+                        "type": "select",
+                        "label": "Search Method",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "select",
+                                "fromAll",
+                                "map"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "insertUnformatted",
+                        "type": "boolean",
+                        "label": "Unformatted",
+                        "required": true
+                    },
+                    {
+                        "name": "valueInputOption",
+                        "type": "select",
+                        "label": "Value input option",
+                        "validate": {
+                            "enum": [
+                                "USER_ENTERED",
+                                "RAW"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "insertDataOption",
+                        "type": "select",
+                        "label": "Insert data option",
+                        "validate": {
+                            "enum": [
+                                "INSERT_ROWS",
+                                "OVERWRITE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "type": "select",
+                        "label": "Drive",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                "drive",
+                                "share",
+                                "team"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "spreadsheetId",
+                        "type": "file",
+                        "label": "Spreadsheet ID",
+                        "required": true
+                    },
+                    {
+                        "name": "sheetId",
+                        "type": "select",
+                        "label": "Sheet Name",
+                        "required": true
+                    },
+                    {
+                        "name": "includesHeaders",
+                        "type": "select",
+                        "label": "Table contains headers",
+                        "required": true,
+                        "validate": {
+                            "enum": [
+                                true,
+                                false
+                            ]
+                        }
+                    },
+                    {
+                        "name": "values",
+                        "spec": [
+                            {
+                                "name": "0",
+                                "type": "text",
+                                "label": "Bank Name (A)"
+                            },
+                            {
+                                "name": "1",
+                                "type": "text",
+                                "label": "Bank Address (B)"
+                            },
+                            {
+                                "name": "2",
+                                "type": "text",
+                                "label": "Account Holder (C)"
+                            },
+                            {
+                                "name": "3",
+                                "type": "text",
+                                "label": "Account Address (D)"
+                            },
+                            {
+                                "name": "4",
+                                "type": "text",
+                                "label": "Account Number (E)"
+                            },
+                            {
+                                "name": "5",
+                                "type": "text",
+                                "label": "Account Activity Period (F)"
+                            },
+                            {
+                                "name": "6",
+                                "type": "text",
+                                "label": "Date (G)"
+                            },
+                            {
+                                "name": "7",
+                                "type": "text",
+                                "label": "Description (H)"
+                            },
+                            {
+                                "name": "8",
+                                "type": "text",
+                                "label": "Deposits (I)"
+                            },
+                            {
+                                "name": "9",
+                                "type": "text",
+                                "label": "Withdrawals (J)"
+                            },
+                            {
+                                "name": "10",
+                                "type": "text",
+                                "label": "Balance (K)"
+                            },
+                            {
+                                "name": "11",
+                                "type": "text",
+                                "label": "(L)"
+                            },
+                            {
+                                "name": "12",
+                                "type": "text",
+                                "label": "(M)"
+                            },
+                            {
+                                "name": "13",
+                                "type": "text",
+                                "label": "(N)"
+                            },
+                            {
+                                "name": "14",
+                                "type": "text",
+                                "label": "(O)"
+                            },
+                            {
+                                "name": "15",
+                                "type": "text",
+                                "label": "(P)"
+                            },
+                            {
+                                "name": "16",
+                                "type": "text",
+                                "label": "(Q)"
+                            },
+                            {
+                                "name": "17",
+                                "type": "text",
+                                "label": "(R)"
+                            },
+                            {
+                                "name": "18",
+                                "type": "text",
+                                "label": "(S)"
+                            },
+                            {
+                                "name": "19",
+                                "type": "text",
+                                "label": "(T)"
+                            },
+                            {
+                                "name": "20",
+                                "type": "text",
+                                "label": "(U)"
+                            },
+                            {
+                                "name": "21",
+                                "type": "text",
+                                "label": "(V)"
+                            },
+                            {
+                                "name": "22",
+                                "type": "text",
+                                "label": "(W)"
+                            },
+                            {
+                                "name": "23",
+                                "type": "text",
+                                "label": "(X)"
+                            },
+                            {
+                                "name": "24",
+                                "type": "text",
+                                "label": "(Y)"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Values"
+                    }
+                ]
+            }
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "eu2.make.com",
+        "notes": []
+    }
+}
