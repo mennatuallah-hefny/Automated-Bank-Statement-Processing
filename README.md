@@ -116,7 +116,7 @@ Jotform → Make.com Scenario → PDF.co → Google Sheets
 ## 🤝 Contributing
 
 1. Fork repo
-2. Update `make-scenario.json` or `README.md`
+2. Update `Bank Statement Automation.json` or `README.md`
 3. Submit PR
 
 ---
