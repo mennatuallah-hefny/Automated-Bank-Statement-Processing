@@ -26,14 +26,8 @@ This scenario automates the ingestion, parsing, and reporting of PDF bank statem
 ## ⚙️ Workflow Steps
 
 1. **Trigger**: Jotform “New Submission” webhook
-2. **Fetch PDF**: HTTP “Get File” module
-3. **Parse**: PDF.co “Bank Statement Parser”
-4. **Transform**: JSON → array of `{ date, description, amount, balance }`
-5. **Load**:
-   - Google Sheets “Add Rows” (transactions)
-   - Google Sheets “Update Cell” (daily totals)
-6. **Notify**: Slack/Email summary with link & error flags
-7. **Log**: start/end timestamps + error count to Make Data Store
+2. **Fetch & Parse PDF**: PDF.co “AI Invoice Parser”
+3. **Load**: Google Sheets “Add Rows” (transactions)
 
 ---
 
@@ -48,8 +42,8 @@ Jotform → Make.com Scenario → PDF.co → Google Sheets & Slack/Email
 ## 🏛 Tech Stack
 
 - **No–Code**: Make (Integromat)
-- **Form Input**: Jotform API / Webhooks
-- **PDF Parsing**: PDF.co v2
+- **Form Input**: Jotform API 
+- **PDF Parsing**: PDF.co 
 - **Data Store**: Google Sheets
 
 ---
@@ -63,28 +57,27 @@ Jotform → Make.com Scenario → PDF.co → Google Sheets & Slack/Email
    ```
 
 2. **Import Make.com Scenario**
-   - In Make.com: **Scenarios → Import** → upload `make-scenario.json`
+   - In Make.com: **Scenarios → Create a new scenario → Import** → upload `Bank Statement Automation.json`
 
 3. **Configure Connections**
-   - Jotform API Key → Scenario “Jotform” module
-   - PDF.co API Key → Scenario “PDF.co” module
-   - Google Sheets OAuth → Scenario “Google Sheets” modules
+   - Jotform API Key → [Connect Jotform to Make](https://apps.make.com/jotform)
+   - PDF.co API Key → [Connect PDF.co to Make](https://apps.make.com/pdfco)
+   - Google Sheets OAuth → [Connect PDF.co to Make](https://apps.make.com/google-sheets)
 
 4. **Deploy**
    - Turn scenario **ON**
-   - Set schedule to **“Immediately”** on webhook trigger
 
 ---
 
 ## 📊 Metrics & Results
 
-| Metric                   | Manual (Estimated) | Automated (Measured/Estimated) | Improvement        |
+| Metric                   | Manual (Estimated) | Automated (Measured/Estimated) | Improvement       |
 |--------------------------|--------------------|-------------------------------|--------------------|
 | Processing Time per PDF  | 10 min             | 37 sec (measured)             | –93.8%             |
 | Monthly Throughput       | 100                | 500 (estimated)               | +400%              |
 | Error Rate               | 1% (estimated)     | <0.05% (estimated)            | –95%               |
-| Monthly Hours Saved      | —                  | 65 hrs (estimated)            | +65 hrs            |
-| Annual Labor Savings     | —                  | $14.1K (estimated)            | +$14.1K            |
+| Monthly Hours Saved      | —                  | 78 hrs (calculated)           | +78 hrs            |
+| Annual Labor Savings     | —                  | $14,040 (calculated)          | +$14,040           |
 
 > 💡 **Annual labor cost savings** estimated using:
 > - 0.157 hrs saved per PDF
@@ -107,15 +100,15 @@ Jotform → Make.com Scenario → PDF.co → Google Sheets & Slack/Email
 
 ### ❌ Error Rate
 
-- **Manual Estimate**: 1% error rate is a commonly accepted average for manual data entry tasks. citeturn0search4
-- **Automated Estimate**: <0.05% error rate is based on the high accuracy rates of automated data entry systems, which typically boast accuracy rates of 99.959% to 99.99%. citeturn0search1
+- **Manual Estimate**: 1% error rate is a commonly accepted average for manual data entry tasks. 
+- **Automated Estimate**: <0.05% error rate is based on the high accuracy rates of automated data entry systems, which typically boast accuracy rates of 99.959% to 99.99%.
 
 ### 💰 Labor Savings
 
 - **Calculation**:
-  - Time saved per PDF: 10 min (manual) – 37 sec (automated) = 9.38 min ≈ 0.157 hrs
-  - Monthly savings: 0.157 hrs × 500 PDFs = 78.5 hrs
-  - Annual savings: 78.5 hrs/month × $15/hr × 12 months = $14,130
+  - Time saved per PDF: 10 min (manual) – 37 sec (automated) = 9.23 min ≈ 0.156 hrs
+  - Monthly savings: 0.156 hrs × 500 PDFs = 78 hrs
+  - Annual savings: 78 hrs/month × $15/hr × 12 months = $14,040
 
 
 ---
