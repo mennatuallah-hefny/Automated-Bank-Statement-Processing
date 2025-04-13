@@ -27,7 +27,7 @@ This scenario automates the ingestion, parsing, and reporting of PDF bank statem
 
 1. **Trigger**: Jotform “New Submission” webhook
 2. **Fetch & Parse PDF**: PDF.co “AI Invoice Parser”
-3. **Load**: Google Sheets “Add Rows” (transactions)
+3. **Load**: Google Sheets “Add Rows” 
 
 ---
 
