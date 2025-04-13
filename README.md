@@ -34,7 +34,7 @@ This scenario automates the ingestion, parsing, and reporting of PDF bank statem
 ## 🏗 Architecture
 
 ```
-Jotform → Make.com Scenario → PDF.co → Google Sheets & Slack/Email
+Jotform → Make.com Scenario → PDF.co → Google Sheets
 ```
 
 ---
